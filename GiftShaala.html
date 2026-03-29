@@ -1,0 +1,2926 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gift Shaala — Gifts That Speak From The Heart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --crimson: #8b1a1a;
+        --crimson-deep: #5c0f0f;
+        --gold: #c9a84c;
+        --gold-light: #f0d080;
+        --gold-pale: #f9efc7;
+        --cream: #fdf6ed;
+        --coral: #d4603a;
+        --blush: #f5ddd0;
+        --dark: #1a0808;
+        --dark-2: #2c1010;
+        --text-dark: #1a0808;
+        --text-mid: #5a2c2c;
+        --white: #fffdf9;
+        --shadow-gold: 0 8px 40px rgba(201, 168, 76, 0.25);
+        --shadow-red: 0 8px 40px rgba(139, 26, 26, 0.3);
+        --radius-lg: 24px;
+        --radius-xl: 40px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--cream);
+        color: var(--text-dark);
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* ─── CUSTOM CURSOR ─── */
+      #cursor {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background: var(--gold);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, background 0.2s;
+        mix-blend-mode: multiply;
+      }
+      #cursor-ring {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid var(--gold);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: all 0.12s ease-out;
+        opacity: 0.6;
+      }
+      body:hover #cursor {
+        opacity: 1;
+      }
+      a:hover ~ #cursor,
+      button:hover ~ #cursor {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* ─── PRELOADER ─── */
+      #preloader {
+        position: fixed;
+        inset: 0;
+        background: var(--dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+      }
+      #preloader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .preloader-gift {
+        font-size: 80px;
+        animation: giftBounce 0.8s ease infinite alternate;
+        filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.6));
+      }
+      @keyframes giftBounce {
+        from {
+          transform: translateY(0) scale(1);
+        }
+        to {
+          transform: translateY(-20px) scale(1.1);
+        }
+      }
+      .preloader-text {
+        font-family: "Playfair Display", serif;
+        color: var(--gold);
+        font-size: 2rem;
+        margin-top: 24px;
+        letter-spacing: 0.3em;
+        animation: fadeInUp 0.6s 0.4s ease both;
+      }
+      .preloader-bar {
+        width: 200px;
+        height: 2px;
+        background: var(--dark-2);
+        margin-top: 32px;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .preloader-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        border-radius: 2px;
+        animation: fillBar 2s ease forwards;
+      }
+      @keyframes fillBar {
+        from {
+          width: 0%;
+        }
+        to {
+          width: 100%;
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── CANVAS (PARTICLES) ─── */
+      #particles-canvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.5;
+      }
+
+      /* ─── NAVBAR ─── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 20px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.4s ease;
+      }
+      nav.scrolled {
+        background: rgba(253, 246, 237, 0.96);
+        backdrop-filter: blur(20px);
+        padding: 14px 5%;
+        box-shadow: 0 2px 30px rgba(139, 26, 26, 0.1);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      }
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--white);
+        text-decoration: none;
+        letter-spacing: 0.05em;
+        transition: color 0.4s;
+      }
+      nav.scrolled .nav-logo {
+        color: var(--crimson);
+      }
+      .nav-logo span {
+        color: var(--gold-light);
+      }
+      nav.scrolled .nav-logo span {
+        color: var(--gold);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 36px;
+        list-style: none;
+        align-items: center;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        transition: color 0.3s;
+        position: relative;
+      }
+      nav.scrolled .nav-links a {
+        color: var(--text-mid);
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--gold);
+        transition: width 0.3s;
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      .nav-cta {
+        background: var(--gold) !important;
+        color: var(--dark) !important;
+        padding: 10px 24px !important;
+        border-radius: 50px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.05em !important;
+        transition: all 0.3s !important;
+      }
+      .nav-cta::after {
+        display: none !important;
+      }
+      .nav-cta:hover {
+        background: var(--gold-light) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4) !important;
+      }
+
+      /* ─── HERO ─── */
+      #hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          var(--crimson-deep) 0%,
+          var(--dark-2) 40%,
+          #3d1515 70%,
+          var(--crimson) 100%
+        );
+      }
+      .hero-bg-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+            circle at 20% 20%,
+            rgba(201, 168, 76, 0.12) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(201, 168, 76, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(139, 26, 26, 0.3) 0%,
+            transparent 60%
+          );
+      }
+      .hero-grid-overlay {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            rgba(201, 168, 76, 0.04) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 8%;
+        max-width: 700px;
+        animation: heroSlideIn 1s 2.8s ease both;
+      }
+      @keyframes heroSlideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-60px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(201, 168, 76, 0.15);
+        border: 1px solid rgba(201, 168, 76, 0.4);
+        color: var(--gold-light);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-bottom: 32px;
+      }
+      .hero-badge-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--gold);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.5);
+        }
+      }
+
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(3rem, 7vw, 6rem);
+        font-weight: 900;
+        line-height: 1.05;
+        color: var(--white);
+        margin-bottom: 24px;
+      }
+      .hero-title .line-2 {
+        color: var(--gold-light);
+        font-style: italic;
+        display: block;
+      }
+      .hero-title .line-3 {
+        display: block;
+        font-size: 0.55em;
+        font-weight: 400;
+        font-style: normal;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.6);
+        font-family: "DM Sans", sans-serif;
+        text-transform: uppercase;
+        margin-top: 12px;
+      }
+
+      .hero-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.7;
+        margin-bottom: 48px;
+        font-style: italic;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-light));
+        color: var(--dark);
+        padding: 18px 40px;
+        border-radius: 60px;
+        font-weight: 700;
+        font-size: 1rem;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 10px 40px rgba(201, 168, 76, 0.4);
+        letter-spacing: 0.02em;
+      }
+      .btn-primary:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 50px rgba(201, 168, 76, 0.5);
+      }
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: transparent;
+        color: var(--white);
+        padding: 17px 38px;
+        border-radius: 60px;
+        font-weight: 500;
+        font-size: 1rem;
+        text-decoration: none;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.6);
+        transform: translateY(-2px);
+      }
+
+      .hero-phone-chip {
+        position: absolute;
+        bottom: 10%;
+        left: 8%;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        border-radius: 20px;
+        padding: 20px 28px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        animation: heroSlideIn 1s 3.2s ease both,
+          float 4s 4.2s ease-in-out infinite;
+        z-index: 2;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .phone-icon-wrap {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, var(--gold), var(--coral));
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        animation: ringShake 3s 5s ease-in-out infinite;
+      }
+      @keyframes ringShake {
+        0%,
+        90%,
+        100% {
+          transform: rotate(0);
+        }
+        92% {
+          transform: rotate(-15deg);
+        }
+        94% {
+          transform: rotate(15deg);
+        }
+        96% {
+          transform: rotate(-10deg);
+        }
+        98% {
+          transform: rotate(10deg);
+        }
+      }
+      .phone-chip-text {
+        color: var(--white);
+      }
+      .phone-chip-label {
+        font-size: 0.72rem;
+        opacity: 0.7;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .phone-chip-number {
+        font-size: 1.3rem;
+        font-weight: 700;
+        font-family: "Playfair Display", serif;
+        color: var(--gold-light);
+      }
+
+      .hero-visual {
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42%;
+        max-width: 520px;
+        z-index: 2;
+        animation: heroVisualIn 1.2s 3s ease both;
+      }
+      @keyframes heroVisualIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50%) scale(0.8) rotate(5deg);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(-50%) scale(1) rotate(0deg);
+        }
+      }
+      .hero-gift-display {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+      }
+      .gift-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 55%;
+        aspect-ratio: 1;
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--gold-light) 50%,
+          var(--gold) 100%
+        );
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        box-shadow: 0 30px 80px rgba(201, 168, 76, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        animation: giftFloat 3s ease-in-out infinite;
+      }
+      @keyframes giftFloat {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) rotate(-3deg) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -54%) rotate(3deg) scale(1.03);
+        }
+      }
+      .orbit-item {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        animation: orbit 8s linear infinite;
+      }
+      .orbit-item:nth-child(2) {
+        top: 5%;
+        left: 60%;
+        animation-delay: -2s;
+      }
+      .orbit-item:nth-child(3) {
+        top: 30%;
+        left: 88%;
+        animation-delay: -4s;
+      }
+      .orbit-item:nth-child(4) {
+        top: 70%;
+        left: 80%;
+        animation-delay: -6s;
+      }
+      .orbit-item:nth-child(5) {
+        top: 80%;
+        left: 20%;
+        animation-delay: -1s;
+      }
+      .orbit-item:nth-child(6) {
+        top: 25%;
+        left: 5%;
+        animation-delay: -5s;
+      }
+      @keyframes orbit {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        25% {
+          transform: translateY(-12px) scale(1.05);
+        }
+        75% {
+          transform: translateY(8px) scale(0.95);
+        }
+      }
+
+      /* ─── MARQUEE ─── */
+      .marquee-strip {
+        background: linear-gradient(
+          90deg,
+          var(--gold),
+          var(--gold-light),
+          var(--gold)
+        );
+        padding: 14px 0;
+        overflow: hidden;
+        position: relative;
+        z-index: 3;
+      }
+      .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 25s linear infinite;
+        gap: 0;
+      }
+      .marquee-track:hover {
+        animation-play-state: paused;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .marquee-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 40px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--dark);
+      }
+      .marquee-sep {
+        color: var(--crimson);
+        font-size: 1.2rem;
+      }
+
+      /* ─── SECTION COMMON ─── */
+      section {
+        position: relative;
+        z-index: 1;
+      }
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: var(--gold);
+        margin-bottom: 16px;
+      }
+      .section-label::before {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.2rem, 4vw, 3.5rem);
+        font-weight: 700;
+        line-height: 1.15;
+        color: var(--dark);
+        margin-bottom: 20px;
+      }
+      .section-title em {
+        color: var(--crimson);
+        font-style: italic;
+      }
+      .section-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2rem;
+        color: var(--text-mid);
+        font-style: italic;
+        line-height: 1.6;
+        max-width: 540px;
+      }
+
+      /* ─── CATEGORIES ─── */
+      #categories {
+        padding: 120px 5%;
+        background: var(--white);
+      }
+      .categories-header {
+        text-align: center;
+        margin-bottom: 70px;
+      }
+      .categories-header .section-label {
+        justify-content: center;
+      }
+      .categories-header .section-label::before {
+        display: none;
+      }
+      .categories-header .section-label::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      @media (max-width: 900px) {
+        .categories-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .cat-card {
+        position: relative;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        cursor: pointer;
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .cat-card:nth-child(1) {
+        aspect-ratio: 3/4;
+        grid-row: span 2;
+      }
+      .cat-card:nth-child(5) {
+        aspect-ratio: 3/4;
+        grid-row: span 2;
+      }
+
+      .cat-card:hover {
+        transform: scale(1.02) translateY(-4px);
+      }
+      .cat-card:hover .cat-img {
+        transform: scale(1.1);
+      }
+      .cat-card:hover .cat-overlay {
+        opacity: 1;
+      }
+      .cat-card:hover .cat-info {
+        transform: translateY(0);
+      }
+
+      .cat-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+      .cat-bg {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+      }
+
+      .cat-card:nth-child(1) .cat-bg {
+        background: linear-gradient(160deg, #c94040 0%, #8b1a1a 100%);
+      }
+      .cat-card:nth-child(2) .cat-bg {
+        background: linear-gradient(160deg, #d4af37 0%, #a0752e 100%);
+      }
+      .cat-card:nth-child(3) .cat-bg {
+        background: linear-gradient(160deg, #4a90c4 0%, #2c5f8a 100%);
+      }
+      .cat-card:nth-child(4) .cat-bg {
+        background: linear-gradient(160deg, #7c4e9e 0%, #4a1e6a 100%);
+      }
+      .cat-card:nth-child(5) .cat-bg {
+        background: linear-gradient(160deg, #3d9e6e 0%, #1e5a40 100%);
+      }
+      .cat-card:nth-child(6) .cat-bg {
+        background: linear-gradient(160deg, #c95e2a 0%, #8b3010 100%);
+      }
+      .cat-card:nth-child(7) .cat-bg {
+        background: linear-gradient(160deg, #8b6a4a 0%, #5c3a20 100%);
+      }
+      .cat-card:nth-child(8) .cat-bg {
+        background: linear-gradient(160deg, #c94a80 0%, #8b1a50 100%);
+      }
+
+      .cat-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(26, 8, 8, 0.9) 0%,
+          rgba(26, 8, 8, 0.2) 60%,
+          transparent 100%
+        );
+        opacity: 0.7;
+        transition: opacity 0.4s;
+      }
+      .cat-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 30px 24px;
+        transform: translateY(8px);
+        transition: transform 0.4s ease;
+      }
+      .cat-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 6px;
+      }
+      .cat-count {
+        font-size: 0.78rem;
+        color: var(--gold-light);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .cat-arrow {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 36px;
+        height: 36px;
+        background: rgba(201, 168, 76, 0.2);
+        border: 1px solid rgba(201, 168, 76, 0.4);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold-light);
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+      .cat-card:hover .cat-arrow {
+        background: var(--gold);
+        color: var(--dark);
+        transform: rotate(45deg);
+      }
+
+      /* ─── STATS ─── */
+      .stats-bar {
+        background: var(--crimson-deep);
+        padding: 60px 5%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      .stats-bar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(201, 168, 76, 0.08) 0%,
+          transparent 60%
+        );
+      }
+      @media (max-width: 700px) {
+        .stats-bar {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .stat-item {
+        text-align: center;
+        position: relative;
+      }
+      .stat-item::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 20%;
+        bottom: 20%;
+        width: 1px;
+        background: rgba(201, 168, 76, 0.2);
+      }
+      .stat-item:last-child::after {
+        display: none;
+      }
+      .stat-num {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--gold-light);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .stat-label {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      /* ─── FEATURED PRODUCTS ─── */
+      #products {
+        padding: 120px 5%;
+        background: var(--cream);
+      }
+      .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 60px;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+      .products-filters {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .filter-btn {
+        padding: 10px 22px;
+        border-radius: 50px;
+        border: 1.5px solid rgba(139, 26, 26, 0.2);
+        background: transparent;
+        color: var(--text-mid);
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: "DM Sans", sans-serif;
+      }
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--crimson);
+        border-color: var(--crimson);
+        color: var(--white);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+      }
+      @media (max-width: 1100px) {
+        .products-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 750px) {
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .product-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        border: 1.5px solid transparent;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        transform-style: preserve-3d;
+        cursor: pointer;
+      }
+      .product-card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        background: linear-gradient(
+          135deg,
+          transparent 0%,
+          var(--gold) 50%,
+          transparent 100%
+        );
+        border-radius: var(--radius-lg);
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: 0;
+      }
+      .product-card:hover::before {
+        opacity: 0.5;
+      }
+      .product-card:hover {
+        transform: translateY(-12px) scale(1.01);
+        box-shadow: 0 30px 60px rgba(139, 26, 26, 0.15), 0 0 0 1.5px var(--gold);
+      }
+
+      .product-img-wrap {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        background: var(--blush);
+      }
+      .product-bg {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4.5rem;
+        transition: transform 0.5s ease;
+      }
+      .product-card:hover .product-bg {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: var(--crimson);
+        color: var(--white);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: 50px;
+      }
+      .product-badge.gold {
+        background: var(--gold);
+        color: var(--dark);
+      }
+      .product-badge.coral {
+        background: var(--coral);
+      }
+
+      .product-quick-call {
+        position: absolute;
+        bottom: 14px;
+        right: 14px;
+        width: 44px;
+        height: 44px;
+        background: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        transform: scale(0.7);
+        transition: all 0.3s;
+      }
+      .product-card:hover .product-quick-call {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .product-info {
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+        background: var(--white);
+      }
+      .product-cat {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .product-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+      .product-desc {
+        font-size: 0.8rem;
+        color: var(--text-mid);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .product-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .product-price {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--crimson);
+      }
+      .product-price span {
+        font-size: 0.75rem;
+        color: var(--text-mid);
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+        text-decoration: line-through;
+        margin-left: 4px;
+      }
+      .product-cta {
+        background: linear-gradient(
+          135deg,
+          var(--crimson),
+          var(--crimson-deep)
+        );
+        color: var(--white);
+        border: none;
+        padding: 10px 18px;
+        border-radius: 50px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "DM Sans", sans-serif;
+        letter-spacing: 0.05em;
+      }
+      .product-cta:hover {
+        background: linear-gradient(135deg, var(--coral), var(--crimson));
+        transform: scale(1.05);
+      }
+
+      /* ─── WHY US ─── */
+      #why {
+        padding: 120px 5%;
+        background: linear-gradient(
+          160deg,
+          var(--dark) 0%,
+          var(--crimson-deep) 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      #why::before {
+        content: "";
+        position: absolute;
+        top: -200px;
+        right: -200px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(201, 168, 76, 0.1) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .why-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      @media (max-width: 800px) {
+        .why-inner {
+          grid-template-columns: 1fr;
+        }
+      }
+      .why-left .section-title {
+        color: var(--white);
+      }
+      .why-left .section-sub {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .why-left .section-label {
+        color: var(--gold-light);
+      }
+      .why-left .section-label::before {
+        background: var(--gold-light);
+      }
+
+      .why-phone-big {
+        margin-top: 40px;
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-light));
+        padding: 20px 36px;
+        border-radius: 60px;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      .why-phone-big:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 50px rgba(201, 168, 76, 0.4);
+      }
+      .why-phone-big-icon {
+        font-size: 1.5rem;
+      }
+      .why-phone-big-text {
+      }
+      .why-phone-big-label {
+        font-size: 0.7rem;
+        color: rgba(26, 8, 8, 0.7);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .why-phone-big-num {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dark);
+      }
+
+      .why-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .feat-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        border-radius: 20px;
+        padding: 28px 24px;
+        transition: all 0.3s;
+      }
+      .feat-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(201, 168, 76, 0.5);
+        transform: translateY(-4px);
+      }
+      .feat-icon {
+        font-size: 2.2rem;
+        margin-bottom: 16px;
+        display: block;
+      }
+      .feat-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        color: var(--gold-light);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      .feat-desc {
+        font-size: 0.83rem;
+        color: rgba(255, 255, 255, 0.55);
+        line-height: 1.6;
+      }
+
+      /* ─── OCCASIONS ─── */
+      #occasions {
+        padding: 120px 5%;
+        background: var(--white);
+      }
+      .occasions-header {
+        text-align: center;
+        margin-bottom: 70px;
+      }
+      .occasions-header .section-label {
+        justify-content: center;
+      }
+      .occasions-header .section-label::before {
+        display: none;
+      }
+      .occasions-header .section-label::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .occasions-scroll {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding-bottom: 20px;
+        scrollbar-width: none;
+      }
+      .occasions-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .occ-card {
+        flex: 0 0 220px;
+        background: var(--cream);
+        border: 1.5px solid rgba(201, 168, 76, 0.2);
+        border-radius: 24px;
+        padding: 36px 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      .occ-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          var(--crimson) 0%,
+          var(--crimson-deep) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .occ-card:hover::before {
+        opacity: 1;
+      }
+      .occ-card:hover {
+        border-color: var(--crimson);
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: var(--shadow-red);
+      }
+      .occ-icon {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s;
+      }
+      .occ-card:hover .occ-icon {
+        transform: scale(1.2) rotate(10deg);
+      }
+      .occ-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--dark);
+        transition: color 0.3s;
+        position: relative;
+        z-index: 1;
+      }
+      .occ-card:hover .occ-name {
+        color: var(--white);
+      }
+      .occ-sub {
+        font-size: 0.75rem;
+        color: var(--text-mid);
+        margin-top: 6px;
+        position: relative;
+        z-index: 1;
+        transition: color 0.3s;
+      }
+      .occ-card:hover .occ-sub {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* ─── TESTIMONIALS ─── */
+      #testimonials {
+        padding: 120px 5%;
+        background: var(--cream);
+        overflow: hidden;
+      }
+      .testi-header {
+        text-align: center;
+        margin-bottom: 70px;
+      }
+      .testi-header .section-label {
+        justify-content: center;
+      }
+      .testi-header .section-label::before {
+        display: none;
+      }
+      .testi-header .section-label::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .testi-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      @media (max-width: 800px) {
+        .testi-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .testi-card {
+        background: var(--white);
+        border-radius: 24px;
+        padding: 36px 32px;
+        border: 1px solid rgba(201, 168, 76, 0.15);
+        position: relative;
+        transition: all 0.3s;
+      }
+      .testi-card:hover {
+        border-color: var(--gold);
+        box-shadow: var(--shadow-gold);
+        transform: translateY(-6px);
+      }
+      .testi-card:nth-child(2) {
+        transform: translateY(-20px);
+      }
+      .testi-card:nth-child(2):hover {
+        transform: translateY(-26px);
+      }
+
+      .testi-quote {
+        font-size: 4rem;
+        line-height: 0.5;
+        color: var(--gold);
+        font-family: "Playfair Display", serif;
+        margin-bottom: 24px;
+        display: block;
+        opacity: 0.4;
+      }
+      .testi-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.15rem;
+        color: var(--text-dark);
+        line-height: 1.7;
+        font-style: italic;
+        margin-bottom: 28px;
+      }
+      .testi-stars {
+        color: var(--gold);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        letter-spacing: 4px;
+      }
+      .testi-person {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .testi-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--blush), var(--gold-pale));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+      }
+      .testi-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+      .testi-location {
+        font-size: 0.75rem;
+        color: var(--text-mid);
+        margin-top: 2px;
+      }
+
+      /* ─── CALL TO ORDER ─── */
+      #cta {
+        padding: 100px 5%;
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--gold-light) 50%,
+          #e8c84a 100%
+        );
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      #cta::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+            circle at 20% 50%,
+            rgba(139, 26, 26, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 50%,
+            rgba(139, 26, 26, 0.08) 0%,
+            transparent 50%
+          );
+      }
+      .cta-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .cta-emoji {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 24px;
+      }
+      .cta-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-weight: 900;
+        color: var(--dark);
+        margin-bottom: 16px;
+      }
+      .cta-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.3rem;
+        color: rgba(26, 8, 8, 0.7);
+        font-style: italic;
+        margin-bottom: 48px;
+      }
+      .cta-phones {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cta-phone-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 40px;
+        border-radius: 60px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+      .cta-phone-btn.primary {
+        background: var(--dark);
+        color: var(--gold-light);
+        box-shadow: 0 10px 40px rgba(26, 8, 8, 0.3);
+      }
+      .cta-phone-btn.primary:hover {
+        background: var(--crimson-deep);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 50px rgba(26, 8, 8, 0.4);
+      }
+      .cta-phone-btn.secondary {
+        background: rgba(26, 8, 8, 0.08);
+        color: var(--dark);
+        border: 2px solid rgba(26, 8, 8, 0.2);
+      }
+      .cta-phone-btn.secondary:hover {
+        background: rgba(26, 8, 8, 0.14);
+        transform: translateY(-4px);
+      }
+      .cta-hours {
+        margin-top: 32px;
+        font-size: 0.82rem;
+        color: rgba(26, 8, 8, 0.6);
+        letter-spacing: 0.1em;
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        background: var(--dark);
+        padding: 80px 5% 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 60px;
+        margin-bottom: 60px;
+      }
+      @media (max-width: 900px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .footer-brand-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 16px;
+      }
+      .footer-brand-logo span {
+        color: var(--gold);
+      }
+      .footer-tagline {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 28px;
+      }
+      .footer-socials {
+        display: flex;
+        gap: 12px;
+      }
+      .footer-social {
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      .footer-social:hover {
+        background: var(--gold);
+        color: var(--dark);
+        border-color: var(--gold);
+      }
+      .footer-col-title {
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+      .footer-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 0.88rem;
+        transition: color 0.3s;
+      }
+      .footer-links a:hover {
+        color: var(--gold-light);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-copy {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .footer-made {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .footer-made span {
+        color: var(--gold);
+      }
+
+      /* ─── SCROLL REVEAL ANIMATIONS ─── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-60px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal-left.revealed {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(60px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal-right.revealed {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-scale {
+        opacity: 0;
+        transform: scale(0.85);
+        transition: opacity 0.7s ease,
+          transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .reveal-scale.revealed {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .delay-1 {
+        transition-delay: 0.1s !important;
+      }
+      .delay-2 {
+        transition-delay: 0.2s !important;
+      }
+      .delay-3 {
+        transition-delay: 0.3s !important;
+      }
+      .delay-4 {
+        transition-delay: 0.4s !important;
+      }
+      .delay-5 {
+        transition-delay: 0.5s !important;
+      }
+      .delay-6 {
+        transition-delay: 0.6s !important;
+      }
+      .delay-7 {
+        transition-delay: 0.7s !important;
+      }
+      .delay-8 {
+        transition-delay: 0.8s !important;
+      }
+
+      /* ─── BACK TO TOP ─── */
+      #back-top {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(
+          135deg,
+          var(--crimson),
+          var(--crimson-deep)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.1rem;
+        cursor: pointer;
+        z-index: 999;
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: none;
+        box-shadow: 0 8px 24px rgba(139, 26, 26, 0.4);
+      }
+      #back-top.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      #back-top:hover {
+        transform: translateY(-4px) scale(1.1);
+        box-shadow: 0 16px 40px rgba(139, 26, 26, 0.5);
+      }
+
+      /* ─── MOBILE MENU ─── */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 8px;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--white);
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      nav.scrolled .hamburger span {
+        background: var(--crimson);
+      }
+      @media (max-width: 860px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+
+      /* ─── WHATSAPP FLOAT ─── */
+      #whatsapp-float {
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #25d366;
+        color: white;
+        padding: 14px 22px 14px 18px;
+        border-radius: 60px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.88rem;
+        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+        transition: all 0.3s;
+        animation: fadeInLeft 0.6s 4s ease both;
+      }
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      #whatsapp-float:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(37, 211, 102, 0.5);
+      }
+      #whatsapp-float .wa-icon {
+        font-size: 1.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CUSTOM CURSOR -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+      <div class="preloader-gift">🎁</div>
+      <div class="preloader-text">Gift Shaala</div>
+      <div class="preloader-bar">
+        <div class="preloader-fill"></div>
+      </div>
+    </div>
+
+    <!-- PARTICLES CANVAS -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/919876543210" id="whatsapp-float" target="_blank">
+      <span class="wa-icon">💬</span>
+      Chat on WhatsApp
+    </a>
+
+    <!-- BACK TO TOP -->
+    <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      ↑
+    </button>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+      <a href="#" class="nav-logo">Gift <span>Shaala</span></a>
+      <ul class="nav-links">
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#occasions">Occasions</a></li>
+        <li><a href="#why">About</a></li>
+        <li><a href="#cta" class="nav-cta">📞 Order Now</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section id="hero">
+      <div class="hero-bg-pattern"></div>
+      <div class="hero-grid-overlay"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          India's Favourite Gift Store · Est. 2015
+        </div>
+        <h1 class="hero-title">
+          Gifts That
+          <em class="line-2">Touch Hearts</em>
+          <span class="line-3"
+            >Catalogue Orders · Handpicked Gifts · Pan India Delivery</span
+          >
+        </h1>
+        <p class="hero-sub">
+          From birthday surprises to wedding hampers — discover thousands of
+          curated gifts for every occasion, delivered to your doorstep.
+        </p>
+        <div class="hero-actions">
+          <a href="#products" class="btn-primary"> 🎀 Explore Catalogue </a>
+          <a href="#cta" class="btn-secondary"> 📞 Call to Order </a>
+        </div>
+      </div>
+
+      <!-- Floating phone chip -->
+      <div class="hero-phone-chip">
+        <div class="phone-icon-wrap">📞</div>
+        <div class="phone-chip-text">
+          <div class="phone-chip-label">Order Helpline</div>
+          <div class="phone-chip-number">+91 98765 43210</div>
+        </div>
+      </div>
+
+      <!-- Floating visual -->
+      <div class="hero-visual">
+        <div class="hero-gift-display">
+          <div class="gift-center">🎁</div>
+          <div class="orbit-item">🎂</div>
+          <div class="orbit-item">💍</div>
+          <div class="orbit-item">🪔</div>
+          <div class="orbit-item">🧸</div>
+          <div class="orbit-item">🌸</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip">
+      <div class="marquee-track" id="marquee">
+        <span class="marquee-item"
+          >🎁 Free Gift Wrapping <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🚚 Pan India Delivery <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >📞 Order Via Call <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🎀 1000+ Gift Options <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🪔 Festival Specials Available
+          <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >💍 Wedding Hampers <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🌟 Corporate Gifting <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🎂 Birthday Surprises <span class="marquee-sep">✦</span></span
+        >
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item"
+          >🎁 Free Gift Wrapping <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🚚 Pan India Delivery <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >📞 Order Via Call <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🎀 1000+ Gift Options <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🪔 Festival Specials Available
+          <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >💍 Wedding Hampers <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🌟 Corporate Gifting <span class="marquee-sep">✦</span></span
+        >
+        <span class="marquee-item"
+          >🎂 Birthday Surprises <span class="marquee-sep">✦</span></span
+        >
+      </div>
+    </div>
+
+    <!-- ═══ CATEGORIES ═══ -->
+    <section id="categories">
+      <div class="categories-header reveal">
+        <div class="section-label">Our Collections</div>
+        <h2 class="section-title">Shop By <em>Category</em></h2>
+        <p class="section-sub">
+          Thousands of curated gifts across every celebration and occasion
+        </p>
+      </div>
+
+      <div class="categories-grid">
+        <div class="cat-card reveal delay-1">
+          <div class="cat-bg">🎂</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Birthday Gifts</div>
+            <div class="cat-count">250+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card reveal delay-2">
+          <div class="cat-bg">💍</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Wedding & Anniversary</div>
+            <div class="cat-count">180+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card reveal delay-3">
+          <div class="cat-bg">🪔</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Festival Specials</div>
+            <div class="cat-count">320+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card reveal delay-4">
+          <div class="cat-bg">💼</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Corporate Gifts</div>
+            <div class="cat-count">140+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card reveal delay-1">
+          <div class="cat-bg">🧸</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Kids & Toys</div>
+            <div class="cat-count">200+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card reveal delay-2">
+          <div class="cat-bg">✨</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Personalised</div>
+            <div class="cat-count">90+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card reveal delay-3">
+          <div class="cat-bg">🏡</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Home Decor</div>
+            <div class="cat-count">160+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+        <div class="cat-card reveal delay-4">
+          <div class="cat-bg">🎀</div>
+          <div class="cat-overlay"></div>
+          <div class="cat-info">
+            <div class="cat-name">Hampers & Combos</div>
+            <div class="cat-count">110+ items</div>
+          </div>
+          <div class="cat-arrow">→</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-item reveal delay-1">
+        <div class="stat-num" data-count="12000">0</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-item reveal delay-2">
+        <div class="stat-num" data-count="1400">0</div>
+        <div class="stat-label">Gift Options</div>
+      </div>
+      <div class="stat-item reveal delay-3">
+        <div class="stat-num" data-count="28">0</div>
+        <div class="stat-label">Cities Served</div>
+      </div>
+      <div class="stat-item reveal delay-4">
+        <div class="stat-num" data-count="9">0</div>
+        <div class="stat-label">Years of Joy</div>
+      </div>
+    </div>
+
+    <!-- ═══ FEATURED PRODUCTS ═══ -->
+    <section id="products">
+      <div class="products-header">
+        <div>
+          <div class="section-label reveal">Bestsellers</div>
+          <h2 class="section-title reveal">Most Loved <em>Gifts</em></h2>
+        </div>
+        <div class="products-filters reveal">
+          <button
+            class="filter-btn active"
+            onclick="filterProducts(this, 'all')"
+          >
+            All Gifts
+          </button>
+          <button class="filter-btn" onclick="filterProducts(this, 'birthday')">
+            Birthday
+          </button>
+          <button class="filter-btn" onclick="filterProducts(this, 'festival')">
+            Festival
+          </button>
+          <button class="filter-btn" onclick="filterProducts(this, 'wedding')">
+            Wedding
+          </button>
+          <button
+            class="filter-btn"
+            onclick="filterProducts(this, 'corporate')"
+          >
+            Corporate
+          </button>
+        </div>
+      </div>
+
+      <div class="products-grid">
+        <div class="product-card reveal delay-1" data-category="birthday">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #ffe4e1, #ffb3ba)"
+            >
+              🎂
+            </div>
+            <div class="product-badge">Bestseller</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Birthday</div>
+            <div class="product-name">Luxury Birthday Hamper</div>
+            <div class="product-desc">
+              Chocolate assortment, personalised card, scented candle & more
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹1,299 <span>₹1,799</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-2" data-category="festival">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #fff3cd, #ffd966)"
+            >
+              🪔
+            </div>
+            <div class="product-badge gold">Festival Pick</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Festival · Diwali</div>
+            <div class="product-name">Diwali Grand Hamper</div>
+            <div class="product-desc">
+              Diyas, dry fruits, mithai box, laxmi idol & premium packaging
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹2,199 <span>₹2,999</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-3" data-category="wedding">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #e8d5f5, #c9a0dc)"
+            >
+              💍
+            </div>
+            <div class="product-badge coral">New</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Wedding</div>
+            <div class="product-name">Silver Anniversary Set</div>
+            <div class="product-desc">
+              Silver-plated keepsake box, photo frame & personalised wine
+              glasses
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹3,499 <span>₹4,200</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-4" data-category="corporate">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #d4e6f1, #85c1e9)"
+            >
+              💼
+            </div>
+            <div class="product-badge">Premium</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Corporate</div>
+            <div class="product-name">Executive Corporate Kit</div>
+            <div class="product-desc">
+              Branded diary, pen set, desktop organiser & premium packaging
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹1,799 <span>₹2,299</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-1" data-category="birthday">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #d5f5e3, #82e0aa)"
+            >
+              🧸
+            </div>
+            <div class="product-badge">Kids Fav</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Kids</div>
+            <div class="product-name">Rainbow Toy Surprise Box</div>
+            <div class="product-desc">
+              Age-appropriate toys, activity book, chocolates & festive
+              packaging
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹999 <span>₹1,499</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-2" data-category="festival">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #fdedec, #f1948a)"
+            >
+              🌸
+            </div>
+            <div class="product-badge gold">Trending</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Festival · Holi</div>
+            <div class="product-name">Holi Celebration Hamper</div>
+            <div class="product-desc">
+              Organic colors, sweets, pichkari & beautiful return gifts
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹849 <span>₹1,199</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-3" data-category="wedding">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #fef9e7, #f9e79f)"
+            >
+              ☕
+            </div>
+            <div class="product-badge coral">Personalised</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Personalised</div>
+            <div class="product-name">Custom Couple Mug Set</div>
+            <div class="product-desc">
+              His & hers matching mugs with names, premium gift box
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹699 <span>₹999</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card reveal delay-4" data-category="corporate">
+          <div class="product-img-wrap">
+            <div
+              class="product-bg"
+              style="background: linear-gradient(160deg, #ebf5fb, #aed6f1)"
+            >
+              🌟
+            </div>
+            <div class="product-badge">Bulk Orders</div>
+            <div class="product-quick-call">📞</div>
+          </div>
+          <div class="product-info">
+            <div class="product-cat">Corporate · Bulk</div>
+            <div class="product-name">Rakhi Corporate Bundle</div>
+            <div class="product-desc">
+              Handcrafted rakhis with dry fruit pack — perfect for office
+              gifting
+            </div>
+            <div class="product-bottom">
+              <div class="product-price">₹499 <span>₹749</span></div>
+              <button class="product-cta" onclick="callToOrder()">
+                📞 Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WHY GIFT SHAALA ═══ -->
+    <section id="why">
+      <div class="why-inner">
+        <div class="why-left reveal-left">
+          <div class="section-label">Why Choose Us</div>
+          <h2 class="section-title">
+            Gifting Made <em style="color: var(--gold-light)">Simple</em> &amp;
+            Special
+          </h2>
+          <p class="section-sub">
+            No complicated online checkout. Just call us, tell us the occasion,
+            and we'll handle everything — from curation to delivery.
+          </p>
+          <a href="tel:+919876543210" class="why-phone-big">
+            <span class="why-phone-big-icon">📞</span>
+            <div class="why-phone-big-text">
+              <div class="why-phone-big-label">Call to Order Now</div>
+              <div class="why-phone-big-num">+91 98765 43210</div>
+            </div>
+          </a>
+        </div>
+        <div class="why-features reveal-right">
+          <div class="feat-card delay-1">
+            <span class="feat-icon">🎀</span>
+            <div class="feat-title">Beautiful Gift Wrapping</div>
+            <div class="feat-desc">
+              Every gift is wrapped with care and premium materials at no extra
+              cost.
+            </div>
+          </div>
+          <div class="feat-card delay-2">
+            <span class="feat-icon">🚚</span>
+            <div class="feat-title">Pan India Delivery</div>
+            <div class="feat-desc">
+              We deliver across India — even to Tier 2 & 3 cities reliably.
+            </div>
+          </div>
+          <div class="feat-card delay-3">
+            <span class="feat-icon">💬</span>
+            <div class="feat-title">Personal Assistance</div>
+            <div class="feat-desc">
+              Our gifting experts help you pick the perfect gift via phone or
+              WhatsApp.
+            </div>
+          </div>
+          <div class="feat-card delay-4">
+            <span class="feat-icon">⚡</span>
+            <div class="feat-title">Same Day Dispatch</div>
+            <div class="feat-desc">
+              Order before 2 PM and your gift ships the same day — no delays!
+            </div>
+          </div>
+          <div class="feat-card delay-5">
+            <span class="feat-icon">🌟</span>
+            <div class="feat-title">Curated Catalogue</div>
+            <div class="feat-desc">
+              1400+ handpicked gifts for every budget — nothing generic, ever.
+            </div>
+          </div>
+          <div class="feat-card delay-6">
+            <span class="feat-icon">🔒</span>
+            <div class="feat-title">Trusted Since 2015</div>
+            <div class="feat-desc">
+              12,000+ happy customers across India trust Gift Shaala for every
+              occasion.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ OCCASIONS ═══ -->
+    <section id="occasions">
+      <div class="occasions-header reveal">
+        <div class="section-label">Shop by Occasion</div>
+        <h2 class="section-title">Every Moment <em>Matters</em></h2>
+        <p class="section-sub" style="margin: 0 auto">
+          Find the perfect gift for any celebration
+        </p>
+      </div>
+      <div class="occasions-scroll reveal">
+        <div class="occ-card">
+          <span class="occ-icon">🎂</span>
+          <div class="occ-name">Birthday</div>
+          <div class="occ-sub">Make it unforgettable</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">💍</span>
+          <div class="occ-name">Wedding</div>
+          <div class="occ-sub">Celebrate their union</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">🪔</span>
+          <div class="occ-name">Diwali</div>
+          <div class="occ-sub">Festival of lights</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">🌸</span>
+          <div class="occ-name">Holi</div>
+          <div class="occ-sub">Colors of joy</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">🎋</span>
+          <div class="occ-name">Raksha Bandhan</div>
+          <div class="occ-sub">Bond of love</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">👶</span>
+          <div class="occ-name">Baby Shower</div>
+          <div class="occ-sub">Welcome new life</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">🎓</span>
+          <div class="occ-name">Graduation</div>
+          <div class="occ-sub">Celebrate success</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">💼</span>
+          <div class="occ-name">Corporate</div>
+          <div class="occ-sub">Impress clients</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">❤️</span>
+          <div class="occ-name">Valentine's</div>
+          <div class="occ-sub">Show your love</div>
+        </div>
+        <div class="occ-card">
+          <span class="occ-icon">🙏</span>
+          <div class="occ-name">Eid</div>
+          <div class="occ-sub">Celebrate Eid Mubarak</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TESTIMONIALS ═══ -->
+    <section id="testimonials">
+      <div class="testi-header reveal">
+        <div class="section-label">What Customers Say</div>
+        <h2 class="section-title">Stories of <em>Joy</em></h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal-left delay-1">
+          <span class="testi-quote">"</span>
+          <div class="testi-text">
+            I called Gift Shaala for my parents' anniversary and they suggested
+            the perfect hamper within minutes. The packaging was absolutely
+            gorgeous — my parents were in tears!
+          </div>
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-person">
+            <div class="testi-avatar">👩</div>
+            <div>
+              <div class="testi-name">Priya Sharma</div>
+              <div class="testi-location">Delhi · Anniversary Gift</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal delay-2">
+          <span class="testi-quote">"</span>
+          <div class="testi-text">
+            Ordered Diwali hampers for my entire office — over 50 pieces! Gift
+            Shaala handled everything flawlessly with same-day dispatch. Will
+            definitely order again!
+          </div>
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-person">
+            <div class="testi-avatar">👨‍💼</div>
+            <div>
+              <div class="testi-name">Rajesh Mehta</div>
+              <div class="testi-location">
+                Mumbai · Corporate Diwali Gifting
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal-right delay-3">
+          <span class="testi-quote">"</span>
+          <div class="testi-text">
+            The personalised photo frame I ordered arrived beautifully wrapped
+            and on time. The quality was far beyond what I expected for the
+            price. Highly recommend!
+          </div>
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-person">
+            <div class="testi-avatar">👩‍🦱</div>
+            <div>
+              <div class="testi-name">Ananya Gupta</div>
+              <div class="testi-location">Bangalore · Personalised Gift</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA ═══ -->
+    <section id="cta">
+      <div class="cta-inner">
+        <span class="cta-emoji reveal">📞</span>
+        <h2 class="cta-title reveal">Ready to Gift Something Amazing?</h2>
+        <p class="cta-sub reveal">
+          Just call or WhatsApp us — our gifting experts will help you pick the
+          perfect gift, handle wrapping, and arrange delivery!
+        </p>
+        <div class="cta-phones reveal">
+          <a href="tel:+919876543210" class="cta-phone-btn primary">
+            📞 +91 98765 43210
+          </a>
+          <a
+            href="https://wa.me/919876543210"
+            class="cta-phone-btn secondary"
+            target="_blank"
+          >
+            💬 WhatsApp Us
+          </a>
+        </div>
+        <div class="cta-hours reveal">
+          🕐 &nbsp; Available Mon–Sat · 9 AM to 8 PM &nbsp; |&nbsp; 📍 Serving
+          Pan India
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-logo">Gift <span>Shaala</span></div>
+          <div class="footer-tagline">
+            Curating moments of joy since 2015.<br />Every gift tells a story —
+            let us help you tell yours.
+          </div>
+          <div class="footer-socials">
+            <a href="#" class="footer-social">📘</a>
+            <a href="#" class="footer-social">📸</a>
+            <a href="#" class="footer-social">💬</a>
+            <a href="#" class="footer-social">🐦</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="#">Birthday Gifts</a></li>
+            <li><a href="#">Wedding Hampers</a></li>
+            <li><a href="#">Festival Specials</a></li>
+            <li><a href="#">Corporate Gifts</a></li>
+            <li><a href="#">Kids & Toys</a></li>
+            <li><a href="#">Personalised</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Occasions</div>
+          <ul class="footer-links">
+            <li><a href="#">Diwali</a></li>
+            <li><a href="#">Raksha Bandhan</a></li>
+            <li><a href="#">Holi</a></li>
+            <li><a href="#">Valentine's Day</a></li>
+            <li><a href="#">Baby Shower</a></li>
+            <li><a href="#">Graduation</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact Us</div>
+          <ul class="footer-links">
+            <li><a href="tel:+919876543210">📞 +91 98765 43210</a></li>
+            <li><a href="https://wa.me/919876543210">💬 WhatsApp</a></li>
+            <li>
+              <a href="mailto:hello@giftshaala.in">✉️ hello@giftshaala.in</a>
+            </li>
+            <li><a href="#">📍 Patna, Bihar</a></li>
+            <li><a href="#">🕐 Mon–Sat 9AM–8PM</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 Gift Shaala. All rights reserved.</div>
+        <div class="footer-made">
+          Crafted with <span>♥</span> for gifting lovers across India
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ── PRELOADER ──
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("preloader").classList.add("hidden");
+        }, 2400);
+      });
+
+      // ── CURSOR ──
+      const cursor = document.getElementById("cursor");
+      const ring = document.getElementById("cursor-ring");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cursor.style.left = mx + "px";
+        cursor.style.top = my + "px";
+      });
+      function animateRing() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      document
+        .querySelectorAll(
+          "a, button, .cat-card, .product-card, .occ-card, .feat-card"
+        )
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.width = "20px";
+            cursor.style.height = "20px";
+            cursor.style.background = "#C9A84C";
+            ring.style.width = "60px";
+            ring.style.height = "60px";
+            ring.style.borderColor = "rgba(201,168,76,0.6)";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.style.width = "12px";
+            cursor.style.height = "12px";
+            cursor.style.background = "#C9A84C";
+            ring.style.width = "40px";
+            ring.style.height = "40px";
+            ring.style.borderColor = "rgba(201,168,76,0.6)";
+          });
+        });
+
+      // ── PARTICLES ──
+      const canvas = document.getElementById("particles-canvas");
+      const ctx = canvas.getContext("2d");
+      const emojis = [
+        "🎁",
+        "🎀",
+        "⭐",
+        "✨",
+        "🌟",
+        "🎊",
+        "🎉",
+        "💫",
+        "🔔",
+        "🌸",
+      ];
+      let particles = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height + canvas.height;
+          this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
+          this.size = 12 + Math.random() * 20;
+          this.speedY = -(0.3 + Math.random() * 0.7);
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.opacity = 0.1 + Math.random() * 0.35;
+          this.rotation = Math.random() * 360;
+          this.rotSpeed = (Math.random() - 0.5) * 0.8;
+        }
+        update() {
+          this.y += this.speedY;
+          this.x += this.speedX;
+          this.rotation += this.rotSpeed;
+          if (this.y < -80) this.reset();
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.opacity;
+          ctx.translate(this.x, this.y);
+          ctx.rotate((this.rotation * Math.PI) / 180);
+          ctx.font = `${this.size}px serif`;
+          ctx.textAlign = "center";
+          ctx.fillText(this.emoji, 0, 0);
+          ctx.restore();
+        }
+      }
+
+      for (let i = 0; i < 30; i++) {
+        const p = new Particle();
+        p.y = Math.random() * canvas.height;
+        particles.push(p);
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animateParticles);
+      }
+      animateParticles();
+
+      // ── NAVBAR SCROLL ──
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 60) navbar.classList.add("scrolled");
+        else navbar.classList.remove("scrolled");
+
+        // Back to top
+        const btn = document.getElementById("back-top");
+        if (window.scrollY > 400) btn.classList.add("visible");
+        else btn.classList.remove("visible");
+      });
+
+      // ── SCROLL REVEAL ──
+      const reveals = document.querySelectorAll(
+        ".reveal, .reveal-left, .reveal-right, .reveal-scale"
+      );
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+      );
+      reveals.forEach((el) => revealObs.observe(el));
+
+      // ── COUNTER ANIMATION ──
+      const counters = document.querySelectorAll("[data-count]");
+      const counterObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const target = +el.getAttribute("data-count");
+              const suffix = target >= 1000 ? "+" : target < 20 ? "+" : "+";
+              let current = 0;
+              const step = target / 60;
+              const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                  current = target;
+                  clearInterval(timer);
+                }
+                el.textContent =
+                  Math.floor(current).toLocaleString("en-IN") + suffix;
+              }, 25);
+              counterObs.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      counters.forEach((el) => counterObs.observe(el));
+
+      // ── 3D TILT ON PRODUCT CARDS ──
+      document.querySelectorAll(".product-card").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = (e.clientX - cx) / (rect.width / 2);
+          const dy = (e.clientY - cy) / (rect.height / 2);
+          card.style.transform = `
+      perspective(800px)
+      rotateY(${dx * 8}deg)
+      rotateX(${-dy * 8}deg)
+      translateY(-12px)
+      scale(1.02)
+    `;
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "";
+          card.style.transition = "transform 0.5s ease";
+        });
+        card.addEventListener("mouseenter", () => {
+          card.style.transition = "transform 0.1s ease, box-shadow 0.4s ease";
+        });
+      });
+
+      // ── PRODUCT FILTER ──
+      function filterProducts(btn, category) {
+        document
+          .querySelectorAll(".filter-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelectorAll(".product-card").forEach((card) => {
+          const cardCat = card.getAttribute("data-category");
+          if (category === "all" || cardCat === category) {
+            card.style.display = "block";
+            card.style.animation = "fadeUp 0.4s ease both";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+
+      // ── CALL TO ORDER ──
+      function callToOrder() {
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+    position:fixed;inset:0;background:rgba(26,8,8,0.85);z-index:9999;
+    display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(10px);animation:fadeIn 0.3s ease;
+    cursor:default;
+  `;
+        modal.innerHTML = `
+    <div style="
+      background:var(--cream);border-radius:32px;padding:56px 48px;
+      max-width:440px;width:90%;text-align:center;
+      box-shadow:0 40px 80px rgba(0,0,0,0.4);
+      animation:scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      position:relative;
+    ">
+      <button onclick="this.closest('[style]').remove()" style="
+        position:absolute;top:20px;right:20px;background:none;border:none;
+        font-size:1.4rem;cursor:pointer;color:var(--text-mid);
+      ">✕</button>
+      <div style="font-size:3.5rem;margin-bottom:16px;">📞</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--dark);margin-bottom:12px;">Order via Call</h3>
+      <p style="color:var(--text-mid);font-size:0.95rem;margin-bottom:32px;line-height:1.6;">Our gifting expert will help you customise, wrap & schedule delivery!</p>
+      <a href="tel:+919876543210" style="
+        display:flex;align-items:center;justify-content:center;gap:10px;
+        background:linear-gradient(135deg,var(--crimson),var(--crimson-deep));
+        color:white;padding:18px 36px;border-radius:60px;
+        text-decoration:none;font-weight:700;font-size:1.1rem;
+        margin-bottom:12px;transition:all 0.3s;
+      ">📞 &nbsp;+91 98765 43210</a>
+      <a href="https://wa.me/919876543210" target="_blank" style="
+        display:flex;align-items:center;justify-content:center;gap:10px;
+        background:#25D366;color:white;padding:16px 36px;border-radius:60px;
+        text-decoration:none;font-weight:600;font-size:1rem;
+      ">💬 &nbsp;WhatsApp Instead</a>
+      <div style="margin-top:20px;font-size:0.78rem;color:var(--text-mid);">🕐 Available Mon–Sat · 9 AM – 8 PM</div>
+    </div>
+  `;
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) modal.remove();
+        });
+        document.body.appendChild(modal);
+      }
+
+      // ── MOBILE MENU ──
+      function toggleMenu() {
+        const links = document.querySelector(".nav-links");
+        if (links.style.display === "flex") {
+          links.style.display = "none";
+        } else {
+          links.style.cssText = `
+      display:flex;flex-direction:column;
+      position:fixed;top:0;left:0;right:0;bottom:0;
+      background:var(--dark);z-index:999;
+      justify-content:center;align-items:center;
+      gap:32px;font-size:1.5rem;
+    `;
+        }
+      }
+
+      // Inject CSS for modal animations
+      const style = document.createElement("style");
+      style.textContent = `
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes scaleIn { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+`;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
