@@ -186,22 +186,29 @@
         border-bottom: 1px solid rgba(201, 168, 76, 0.2);
       }
       .nav-logo {
-        font-family: "Playfair Display", serif;
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: var(--white);
         text-decoration: none;
-        letter-spacing: 0.05em;
-        transition: color 0.4s;
+        display: flex;
+        align-items: center;
       }
-      nav.scrolled .nav-logo {
-        color: var(--crimson);
+      .nav-logo-img {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        transition: filter 0.4s, transform 0.3s;
       }
-      .nav-logo span {
-        color: var(--gold-light);
+      nav.scrolled .nav-logo-img {
+        filter: drop-shadow(0 2px 6px rgba(139, 26, 26, 0.2));
       }
-      nav.scrolled .nav-logo span {
-        color: var(--gold);
+      .nav-logo-img:hover {
+        transform: scale(1.04);
+      }
+      .footer-logo-img {
+        height: 52px;
+        width: auto;
+        object-fit: contain;
+        filter: brightness(1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+        margin-bottom: 12px;
       }
 
       .nav-links {
@@ -302,7 +309,7 @@
       .hero-content {
         position: relative;
         z-index: 2;
-        padding: 0 8%;
+        padding: 100px 8% 0;
         max-width: 700px;
         animation: heroSlideIn 1s 2.8s ease both;
       }
@@ -433,19 +440,17 @@
       }
 
       .hero-phone-chip {
-        position: absolute;
-        bottom: 10%;
-        left: 8%;
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
         background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(20px);
         border: 1px solid rgba(201, 168, 76, 0.3);
         border-radius: 20px;
-        padding: 20px 28px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        animation: heroSlideIn 1s 3.2s ease both,
-          float 4s 4.2s ease-in-out infinite;
+        padding: 16px 24px;
+        margin-bottom: 32px;
+        width: fit-content;
+        animation: heroSlideIn 1s 3s ease both;
         z-index: 2;
       }
       @keyframes float {
@@ -746,13 +751,8 @@
         cursor: pointer;
         transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
-      .cat-card:nth-child(1) {
+      .cat-card {
         aspect-ratio: 3/4;
-        grid-row: span 2;
-      }
-      .cat-card:nth-child(5) {
-        aspect-ratio: 3/4;
-        grid-row: span 2;
       }
 
       .cat-card:hover {
@@ -1863,7 +1863,7 @@
     <canvas id="particles-canvas"></canvas>
 
     <!-- WHATSAPP FLOAT -->
-    <a href="https://wa.me/919876543210" id="whatsapp-float" target="_blank">
+    <a href="https://wa.me/919873937640" id="whatsapp-float" target="_blank">
       <span class="wa-icon">💬</span>
       Chat on WhatsApp
     </a>
@@ -1875,7 +1875,12 @@
 
     <!-- NAVBAR -->
     <nav id="navbar">
-      <a href="#" class="nav-logo">Gift <span>Shaala</span></a>
+      <a href="#" class="nav-logo"
+        ><img
+          src="gift shaala transparent background.png"
+          alt="Gift Shaala"
+          class="nav-logo-img"
+      /></a>
       <ul class="nav-links">
         <li><a href="#categories">Categories</a></li>
         <li><a href="#products">Products</a></li>
@@ -1909,18 +1914,16 @@
           From birthday surprises to wedding hampers — discover thousands of
           curated gifts for every occasion, delivered to your doorstep.
         </p>
+        <div class="hero-phone-chip">
+          <div class="phone-icon-wrap">📞</div>
+          <div class="phone-chip-text">
+            <div class="phone-chip-label">Order Helpline</div>
+            <div class="phone-chip-number">+91 98739 37640</div>
+          </div>
+        </div>
         <div class="hero-actions">
           <a href="#products" class="btn-primary"> 🎀 Explore Catalogue </a>
           <a href="#cta" class="btn-secondary"> 📞 Call to Order </a>
-        </div>
-      </div>
-
-      <!-- Floating phone chip -->
-      <div class="hero-phone-chip">
-        <div class="phone-icon-wrap">📞</div>
-        <div class="phone-chip-text">
-          <div class="phone-chip-label">Order Helpline</div>
-          <div class="phone-chip-number">+91 98765 43210</div>
         </div>
       </div>
 
@@ -2359,11 +2362,11 @@
             No complicated online checkout. Just call us, tell us the occasion,
             and we'll handle everything — from curation to delivery.
           </p>
-          <a href="tel:+919876543210" class="why-phone-big">
+          <a href="tel:+919873937640" class="why-phone-big">
             <span class="why-phone-big-icon">📞</span>
             <div class="why-phone-big-text">
               <div class="why-phone-big-label">Call to Order Now</div>
-              <div class="why-phone-big-num">+91 98765 43210</div>
+              <div class="why-phone-big-num">+91 98739 37640</div>
             </div>
           </a>
         </div>
@@ -2550,11 +2553,11 @@
           perfect gift, handle wrapping, and arrange delivery!
         </p>
         <div class="cta-phones reveal">
-          <a href="tel:+919876543210" class="cta-phone-btn primary">
-            📞 +91 98765 43210
+          <a href="tel:+919873937640" class="cta-phone-btn primary">
+            📞 +91 98739 37640
           </a>
           <a
-            href="https://wa.me/919876543210"
+            href="https://wa.me/919873937640"
             class="cta-phone-btn secondary"
             target="_blank"
           >
@@ -2572,14 +2575,32 @@
     <footer>
       <div class="footer-grid">
         <div>
-          <div class="footer-brand-logo">Gift <span>Shaala</span></div>
+          <div class="footer-brand-logo">
+            <img
+              src="gift shaala transparent background.png"
+              alt="Gift Shaala"
+              class="footer-logo-img"
+            />
+          </div>
           <div class="footer-tagline">
             Curating moments of joy since 2015.<br />Every gift tells a story —
             let us help you tell yours.
           </div>
           <div class="footer-socials">
-            <a href="#" class="footer-social">📘</a>
-            <a href="#" class="footer-social">📸</a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61578622141689"
+              class="footer-social"
+              target="_blank"
+              title="Facebook"
+              >📘</a
+            >
+            <a
+              href="https://www.instagram.com/giftshaala_/?hl=en"
+              class="footer-social"
+              target="_blank"
+              title="Instagram"
+              >📸</a
+            >
             <a href="#" class="footer-social">💬</a>
             <a href="#" class="footer-social">🐦</a>
           </div>
@@ -2609,8 +2630,8 @@
         <div>
           <div class="footer-col-title">Contact Us</div>
           <ul class="footer-links">
-            <li><a href="tel:+919876543210">📞 +91 98765 43210</a></li>
-            <li><a href="https://wa.me/919876543210">💬 WhatsApp</a></li>
+            <li><a href="tel:+919873937640">📞 +91 98739 37640</a></li>
+            <li><a href="https://wa.me/919873937640">💬 WhatsApp</a></li>
             <li>
               <a href="mailto:hello@giftshaala.in">✉️ hello@giftshaala.in</a>
             </li>
@@ -2876,14 +2897,14 @@
       <div style="font-size:3.5rem;margin-bottom:16px;">📞</div>
       <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--dark);margin-bottom:12px;">Order via Call</h3>
       <p style="color:var(--text-mid);font-size:0.95rem;margin-bottom:32px;line-height:1.6;">Our gifting expert will help you customise, wrap & schedule delivery!</p>
-      <a href="tel:+919876543210" style="
+      <a href="tel:+919873937640" style="
         display:flex;align-items:center;justify-content:center;gap:10px;
         background:linear-gradient(135deg,var(--crimson),var(--crimson-deep));
         color:white;padding:18px 36px;border-radius:60px;
         text-decoration:none;font-weight:700;font-size:1.1rem;
         margin-bottom:12px;transition:all 0.3s;
-      ">📞 &nbsp;+91 98765 43210</a>
-      <a href="https://wa.me/919876543210" target="_blank" style="
+      ">📞 &nbsp;+91 98739 37640</a>
+      <a href="https://wa.me/919873937640" target="_blank" style="
         display:flex;align-items:center;justify-content:center;gap:10px;
         background:#25D366;color:white;padding:16px 36px;border-radius:60px;
         text-decoration:none;font-weight:600;font-size:1rem;
@@ -2900,17 +2921,56 @@
       // ── MOBILE MENU ──
       function toggleMenu() {
         const links = document.querySelector(".nav-links");
-        if (links.style.display === "flex") {
-          links.style.display = "none";
+        const isOpen = links.getAttribute("data-mobile-open") === "true";
+
+        if (isOpen) {
+          closeMobileMenu();
         } else {
+          links.setAttribute("data-mobile-open", "true");
           links.style.cssText = `
       display:flex;flex-direction:column;
       position:fixed;top:0;left:0;right:0;bottom:0;
-      background:var(--dark);z-index:999;
+      background:var(--dark);z-index:9990;
       justify-content:center;align-items:center;
       gap:32px;font-size:1.5rem;
     `;
+          // Inject close button
+          const closeBtn = document.createElement("button");
+          closeBtn.id = "mobile-close-btn";
+          closeBtn.innerHTML = "✕";
+          closeBtn.style.cssText = `
+      position:absolute;top:24px;right:24px;
+      background:rgba(255,255,255,0.1);
+      border:1.5px solid rgba(201,168,76,0.4);
+      color:var(--gold-light);
+      width:48px;height:48px;border-radius:50%;
+      font-size:1.3rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all 0.3s;
+    `;
+          closeBtn.onclick = closeMobileMenu;
+          closeBtn.onmouseover = () =>
+            (closeBtn.style.background = "rgba(201,168,76,0.2)");
+          closeBtn.onmouseout = () =>
+            (closeBtn.style.background = "rgba(255,255,255,0.1)");
+
+          // Make links close the menu when tapped
+          links.querySelectorAll("a").forEach((a) => {
+            a.style.color = "rgba(255,255,255,0.85)";
+            a.style.textDecoration = "none";
+            a.onclick = closeMobileMenu;
+          });
+
+          links.appendChild(closeBtn);
         }
+      }
+
+      function closeMobileMenu() {
+        const links = document.querySelector(".nav-links");
+        links.removeAttribute("style");
+        links.removeAttribute("data-mobile-open");
+        const closeBtn = document.getElementById("mobile-close-btn");
+        if (closeBtn) closeBtn.remove();
       }
 
       // Inject CSS for modal animations
